@@ -3,6 +3,9 @@ import psutil
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
+time_axis = []
+total = []
+
 def networkTrafficEmissions():
     values = psutil.net_io_counters()
     bytes_sent = values[0]
@@ -25,8 +28,6 @@ def animate(i):
     # Uncomment the line below to display average GHG Emission value on chart
     #plt.annotate(str(avg[0]), xy=(avg[0], avg[0]))
 
-if __name__ == '__main__':
-    time_axis = []
-    total = []
+def plot():
     ani = FuncAnimation(plt.gcf(), animate, interval=1000)
     plt.show()
