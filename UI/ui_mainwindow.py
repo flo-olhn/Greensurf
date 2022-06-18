@@ -1,13 +1,3 @@
-# -*- coding: utf-8 -*-
-
-################################################################################
-## Form generated from reading UI file 'mainwindow.ui'
-##
-## Created by: Qt User Interface Compiler version 6.3.0
-##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
-################################################################################
-
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
     QMetaObject, QObject, QPoint, QRect,
     QSize, QTime, QUrl, Qt)
@@ -15,9 +5,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QHBoxLayout, QMainWindow, QMenuBar,
-    QPushButton, QSizePolicy, QSpacerItem, QStatusBar,
-    QWidget)
+from PySide6.QtWidgets import (QApplication, QGridLayout, QHBoxLayout, QMainWindow,
+    QMenuBar, QPushButton, QSizePolicy, QSpacerItem,
+    QStatusBar, QWidget)
 
 from pyqtgraph import PlotWidget
 
@@ -28,20 +18,20 @@ class Ui_MainWindow(object):
         MainWindow.resize(800, 600)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
-        self.hardwareFrame = QWidget(self.centralwidget)
-        self.hardwareFrame.setObjectName(u"hardwareFrame")
-        self.hardwareFrame.setGeometry(QRect(30, 260, 750, 200))
-        self.horizontalLayoutWidget = QWidget(self.centralwidget)
-        self.horizontalLayoutWidget.setObjectName(u"horizontalLayoutWidget")
-        self.horizontalLayoutWidget.setGeometry(QRect(30, 490, 751, 31))
-        self.horizontalLayout = QHBoxLayout(self.horizontalLayoutWidget)
+        self.gridLayout = QGridLayout(self.centralwidget)
+        self.gridLayout.setObjectName(u"gridLayout")
+        self.horizontalLayout_2 = QHBoxLayout()
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+
+        self.gridLayout.addLayout(self.horizontalLayout_2, 6, 0, 1, 1)
+
+        self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         self.horizontalLayout.addItem(self.horizontalSpacer_2)
 
-        self.startButton = QPushButton(self.horizontalLayoutWidget)
+        self.startButton = QPushButton(self.centralwidget)
         self.startButton.setObjectName(u"startButton")
 
         self.horizontalLayout.addWidget(self.startButton)
@@ -50,7 +40,7 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout.addItem(self.horizontalSpacer)
 
-        self.stopButton = QPushButton(self.horizontalLayoutWidget)
+        self.stopButton = QPushButton(self.centralwidget)
         self.stopButton.setObjectName(u"stopButton")
 
         self.horizontalLayout.addWidget(self.stopButton)
@@ -59,16 +49,22 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout.addItem(self.horizontalSpacer_3)
 
-        self.horizontalLayoutWidget_2 = QWidget(self.centralwidget)
-        self.horizontalLayoutWidget_2.setObjectName(u"horizontalLayoutWidget_2")
-        self.horizontalLayoutWidget_2.setGeometry(QRect(29, 39, 751, 211))
-        self.networkFrame = QHBoxLayout(self.horizontalLayoutWidget_2)
-        self.networkFrame.setObjectName(u"networkFrame")
-        self.networkFrame.setContentsMargins(0, 0, 0, 0)
-        self.networkGraph = PlotWidget(self.horizontalLayoutWidget_2)
+
+        self.gridLayout.addLayout(self.horizontalLayout, 8, 0, 1, 1)
+
+        self.networkGraph = PlotWidget(self.centralwidget)
         self.networkGraph.setObjectName(u"networkGraph")
 
-        self.networkFrame.addWidget(self.networkGraph)
+        self.gridLayout.addWidget(self.networkGraph, 0, 0, 1, 1)
+
+        self.hardwareGraph = PlotWidget(self.centralwidget)
+        self.hardwareGraph.setObjectName(u"hardwareGraph")
+
+        self.gridLayout.addWidget(self.hardwareGraph, 3, 0, 1, 1)
+
+        self.verticalSpacer = QSpacerItem(20, 10, QSizePolicy.Minimum, QSizePolicy.Minimum)
+
+        self.gridLayout.addItem(self.verticalSpacer, 1, 0, 1, 1)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
@@ -89,4 +85,3 @@ class Ui_MainWindow(object):
         self.startButton.setText(QCoreApplication.translate("MainWindow", u"Start", None))
         self.stopButton.setText(QCoreApplication.translate("MainWindow", u"Stop", None))
     # retranslateUi
-

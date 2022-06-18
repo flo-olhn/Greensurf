@@ -19,12 +19,13 @@ class MainWindow(QMainWindow):
         self.time_axis = [0 for i in range(86400)] 
         ini = self.networkTrafficEmissions()
         self.total = [ini for i in range(86400)]
-        self.ui.networkFrame.addWidget(self.ui.networkGraph)
+        # self.ui.networkFrame.addWidget(self.ui.networkGraph)
         self.ui.startButton.clicked.connect(self.start)
         self.ui.stopButton.clicked.connect(self.stop)
         self.ui.networkGraph.setBackground('w')
         pen = pg.mkPen(color=(0, 255, 0))
         self.data_line = self.ui.networkGraph.plot([], [], pen=pen)
+        self.data_line2 = self.ui.hardwareGraph.plot([], [], pen=pen)
         self.timer = QtCore.QTimer()
         self.timer.setInterval(1000)
         self.timer.timeout.connect(self.update_plot_data)
@@ -46,6 +47,7 @@ class MainWindow(QMainWindow):
         if (m < max(self.total)) and (self.time_axis[-1] + 1 > 60): 
             self.ui.networkGraph.setYRange(self.total[-60],max(self.total))
         self.data_line.setData(self.time_axis, self.total)
+        self.data_line2.setData(self.time_axis, self.total)
 
     def networkTrafficEmissions(self):
         values = psutil.net_io_counters()
