@@ -5,26 +5,34 @@ from turtle import pen
 
 from PySide6.QtWidgets import QApplication, QMainWindow
 from PyQt6 import QtCore
+from pygame import init
 from ui_mainwindow import Ui_MainWindow
 import psutil
 import pyqtgraph as pg
 
 
 class MainWindow(QMainWindow):
-
+    """
+    background color: #1A1E26
+    background color darker: #101217
+    """
     def __init__(self):
         super(MainWindow, self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.setStyleSheet("background-color: #101217;")
         self.time_axis = [0 for i in range(86400)] 
         ini = self.networkTrafficEmissions()
         self.total = [ini for i in range(86400)]
-        # self.ui.networkFrame.addWidget(self.ui.networkGraph)
         self.ui.startButton.clicked.connect(self.start)
         self.ui.stopButton.clicked.connect(self.stop)
-        self.ui.networkGraph.setBackground('w')
-        pen = pg.mkPen(color=(0, 255, 0))
-        self.data_line = self.ui.networkGraph.plot([], [], pen=pen)
+        self.ui.networkGraph.setBackground('#101217')
+        self.ui.hardwareGraph.setBackground('#101217')
+        self.ui.networkGraph.showGrid(x=True, y=True, alpha=0.1)
+        self.ui.hardwareGraph.showGrid(x=True, y=True, alpha=0.1)
+        self.ui.hardwareGraph.setBackground('#101217')
+        pen = pg.mkPen(color=(94, 255, 125))
+        self.data_line = self.ui.networkGraph.plot([],[], fillLevel = min(self.total), brush=pg.mkBrush(110, 255, 165, 10), pen=pen)
         self.data_line2 = self.ui.hardwareGraph.plot([], [], pen=pen)
         self.timer = QtCore.QTimer()
         self.timer.setInterval(1000)
@@ -42,10 +50,12 @@ class MainWindow(QMainWindow):
         self.total = self.total[1:]
         if (self.time_axis[-1] + 1) % 60 == 0:
             self.ui.networkGraph.setXRange(self.time_axis[-1], self.time_axis[-1] + 60)
+            self.ui.hardwareGraph.setXRange(self.time_axis[-1], self.time_axis[-1] + 60)
         m = max(self.total)
         self.total.append(self.networkTrafficEmissions())
         if (m < max(self.total)) and (self.time_axis[-1] + 1 > 60): 
             self.ui.networkGraph.setYRange(self.total[-60],max(self.total))
+            self.ui.hardwareGraph.setYRange(self.total[-60],max(self.total))
         self.data_line.setData(self.time_axis, self.total)
         self.data_line2.setData(self.time_axis, self.total)
 
