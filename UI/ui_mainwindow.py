@@ -19,6 +19,8 @@ from PySide6.QtWidgets import (QApplication, QHBoxLayout, QMainWindow, QMenuBar,
     QPushButton, QSizePolicy, QSpacerItem, QStatusBar,
     QWidget)
 
+from pyqtgraph import PlotWidget
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
@@ -63,6 +65,11 @@ class Ui_MainWindow(object):
         self.networkFrame = QHBoxLayout(self.horizontalLayoutWidget_2)
         self.networkFrame.setObjectName(u"networkFrame")
         self.networkFrame.setContentsMargins(0, 0, 0, 0)
+        self.networkGraph = PlotWidget(self.horizontalLayoutWidget_2)
+        self.networkGraph.setObjectName(u"networkGraph")
+
+        self.networkFrame.addWidget(self.networkGraph)
+
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")

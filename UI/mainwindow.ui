@@ -98,7 +98,11 @@
       <height>211</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="networkFrame"/>
+    <layout class="QHBoxLayout" name="networkFrame">
+     <item>
+      <widget class="PlotWidget" name="networkGraph"/>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -113,6 +117,13 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>PlotWidget</class>
+   <extends>QGraphicsView</extends>
+   <header>pyqtgraph.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
