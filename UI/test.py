@@ -1,37 +1,25 @@
-import numpy as np
 import psutil
-import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation
+import time
 
-time_axis = []
-total = []
 
-def networkTrafficEmissions():
-    values = psutil.net_io_counters()
-    bytes_sent = values[0]
-    bytes_received = values[1]
+def networkTrafficEmissions(val_list, val_init):
+    vals = psutil.net_io_counters()
+    bytes_sent = vals[0]
+    bytes_received = vals[1]
     total_bytes = bytes_sent + bytes_received
-    total_emission = (total_bytes * 1.52E-10) * 0.057
+    total_emission = ((total_bytes * 1.52E-10) * 0.055) - val_init
+    val_list.append(total_emission)
+    print(total_emission)
+    print(val_list)
+    val_init = val_list[-1]
     return total_emission
-
-def animate(i):
-    time_axis.append(i)
-    total.append(networkTrafficEmissions())
-    #avg =  [np.mean(total)] * len(total)
-    plt.cla()
-    plt.ylabel("GHG Emission - kgCO2eq")
-    plt.xticks([])
-    plt.yscale("log")
-    plt.plot(time_axis, total, color='#46DB96', linewidth=0.5)
-    plt.fill_between(time_axis, total, color='#46DB96', alpha=0.2)
-    #plt.plot(time_axis, avg, color='blue', linewidth=0.5, alpha=0.4, ls='--', )
-    # Uncomment the line below to display average GHG Emission value on chart
-    #plt.annotate(str(avg[0]), xy=(avg[0], avg[0]))
-
-def plot():
-    ani = FuncAnimation(plt.gcf(), animate, interval=1000)
-    plt.show()
 
 
 if __name__ == '__main__':
-    plot()
+    values_start = psutil.net_io_counters()
+    b = values_start[0] + values_start[1]
+    values = []
+    val = (b * 1.52E-10) * 0.055
+    for i in range(10):
+        networkTrafficEmissions(values, val)
+        time.sleep(1)
