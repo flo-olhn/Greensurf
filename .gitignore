@@ -1,1 +1,4 @@
 __pycache__/
+data.txt
+emissions.csv
+total_power_draw.txt
