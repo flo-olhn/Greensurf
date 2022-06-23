@@ -33,11 +33,12 @@ class HardwareEmission():
 
     def __init__(self):
         self.hardware_tracker = EmissionsTracker()
+        self.val = 0
 
     def emissions(self):
         self.hardware_tracker.start()
-        val = self.hardware_tracker.stop()
-        return val
+        self.val = self.hardware_tracker.stop()
+        return self.val
 
 
 class Graph():
@@ -115,6 +116,7 @@ class MainWindow(QMainWindow):
         self.timer.start()
         self.ui.startButton.setEnabled(False)
         self.ui.stopButton.setEnabled(True)
+        self.ui.label_total_emission.setText("0")
 
     def stop(self):
         self.timer.stop()
